@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksam_lau_geek=self.webpackChunksam_lau_geek||[]).push([[2172],{3452:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/SamLauGeek/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
