@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://S7245.github.io/SamLauGeek/blog</id>
-    <title>My Site Blog</title>
+    <title>Sam学习笔记 Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://S7245.github.io/SamLauGeek/blog"/>
-    <subtitle>My Site Blog</subtitle>
+    <subtitle>Sam学习笔记 Blog</subtitle>
     <icon>https://S7245.github.io/SamLauGeek/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
