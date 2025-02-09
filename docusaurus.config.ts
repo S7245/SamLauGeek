@@ -75,10 +75,15 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Flutter',
+          label: "Flutter项目",
+          type: "dropdown",
+          items: [
+            {
+              type: "docSidebar",
+              label: "MuSicApp",
+              sidebarId: "flutterPrjMusicAppSidebar",
+            }
+          ],
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
