@@ -80,8 +80,40 @@ const config: Config = {
           items: [
             {
               type: "docSidebar",
+              label: "Flutter基础",
+              sidebarId: "flutterBasicSidebar",
+            },
+            {
+              type: "docSidebar",
               label: "MuSicApp",
               sidebarId: "flutterPrjMusicAppSidebar",
+            },
+            {
+              type: "docSidebar",
+              label: "FlutterWidgets",
+              sidebarId: "flutterWidgetsSidebar",
+            },
+          ],
+        },
+        {
+          label: "Dart",
+          type: "dropdown",
+          items: [
+            {
+              type: "docSidebar",
+              label: "Dart基础",
+              sidebarId: "dartBasicSidebar",
+            },
+          ],
+        },
+        {
+          label: "Expo项目",
+          type: "dropdown",
+          items: [
+            {
+              type: "docSidebar",
+              label: "ExpoBasic",
+              sidebarId: "expoBasicSidebar",
             }
           ],
         },
