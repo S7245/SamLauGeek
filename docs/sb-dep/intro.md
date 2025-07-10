@@ -1,5 +1,20 @@
 # MyBatis Plus
 
+## 项目准备
+
+![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/img/backend/Mybatis-plus/wechat_2025-07-10_130344_200.png)
+
+![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/img/backend/Mybatis-plus/wechat_2025-07-10_130710_135.png)
+
+![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/img/backend/Mybatis-plus/wechat_2025-07-10_131308_997.png)
+
+![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/img/backend/Mybatis-plus/wechat_2025-07-10_131534_348.png)
+
+![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/img/backend/Mybatis-plus/wechat_2025-07-10_131635_721.png)
+
+
+
+
 https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/backend/
 
 ![](https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/backend/20250705001.png)
@@ -16,35 +31,19 @@ https://blogs7245-1256587996.cos.ap-guangzhou.myqcloud.com/backend/
 
 
 ```yml
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/your_database?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: your_username
-    password: your_password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
 
 spring:
+  application:
+    name: demo-mybatis-101
   datasource:
-    url: jdbc:mysql://localhost:3306/your_database?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/demobatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: your_password
+    password: 1qaz1qaz   #数据库名、用户名和密码改为自己的
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        jdbc:
-          time_zone: Asia/Shanghai
+#  sql:
+#    init:
+#      schema-locations: classpath:db/schema-h2.sql
+#      data-locations: classpath:db/data-h2.sql
 ```
 
 启动类
