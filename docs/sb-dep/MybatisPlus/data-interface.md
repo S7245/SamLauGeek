@@ -416,3 +416,177 @@ public void pageTest(){
     userList.forEach(System.out::println);
 }
 ```
+
+### count
+
+> 查询符合条件的记录总数。
+
+```java
+// 查询总记录数
+int count();
+// 根据 Wrapper 条件，查询总记录数
+int count(Wrapper<T> queryWrapper);
+
+//自3.4.3.2开始,返回值修改为long
+// 查询总记录数
+long count();
+// 根据 Wrapper 条件，查询总记录数
+long count(Wrapper<T> queryWrapper);
+```
+
+#### count
+
+```java
+@Test
+void countTest(){
+    // 查询用户表中的总记录数
+    long totalUsers = userService.count(); // 调用 count 方法
+    System.out.println("Total users: " + totalUsers);
+}
+```
+
+#### count LambdaQueryWrapper
+
+```java
+@Test
+void countQueryWrapper(){
+    LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+    queryWrapper.gt(User::getAge,10);
+
+    long count = userService.count(queryWrapper);
+    System.out.println(count);
+}
+```
+
+## Mapper 层选装件?
+
+## Chain
+
+> Chain 是 Mybatis-Plus 提供的一种链式编程风格，它允许开发者以更加简洁和直观的方式编写数据库操作代码。
+
+```java
+// ============ query ===========
+// 链式查询 普通
+QueryChainWrapper<T> query();
+// 链式查询 lambda 式。注意：不支持 Kotlin
+LambdaQueryChainWrapper<T> lambdaQuery();
+
+// ============ update ===========
+// 链式更改 普通
+UpdateChainWrapper<T> update();
+// 链式更改 lambda 式。注意：不支持 Kotlin
+LambdaUpdateChainWrapper<T> lambdaUpdate();
+```
+
+### query
+
+```java
+// ============ query ===========
+// 链式查询 普通
+QueryChainWrapper<T> query();
+// 链式查询 lambda 式。注意：不支持 Kotlin
+LambdaQueryChainWrapper<T> lambdaQuery();
+```
+
+#### 示例
+```java
+public interface UserService extends IService<User> {
+    // 查询处岁数大于10岁的总数
+    public  Long countUsersAboveAge10();
+}
+
+@Service
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+    implements UserService{
+
+    @Override
+    public Long countUsersAboveAge10() {
+        return this.lambdaQuery().gt(User::getAge, 10).count();
+    }
+}
+```
+
+- 测试
+
+```java
+@SpringBootTest
+class DemoMybatisPlusApplicationTests {
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    void updateUserByEmailTest(){
+        boolean count = userService.updateEmailById();
+        System.out.println(count);
+    }
+}
+```
+
+### update
+
+```java
+// 链式更改 普通
+UpdateChainWrapper<T> update();
+// 链式更改 lambda 式。注意：不支持 Kotlin
+LambdaUpdateChainWrapper<T> lambdaUpdate();
+```
+
+
+#### 示例
+
+- 实现层
+
+```java
+public interface UserService extends IService<User> {
+    public boolean updateEmailById();
+}
+
+@Service
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+    implements UserService{
+
+    @Override
+    public boolean updateEmailById() {
+        User user = new User();
+        user.setEmail("new@mai.com");
+
+        return this.lambdaUpdate()
+                .eq(User::getId,1) // WHERE id = ?
+                .set(User::getEmail, user.getEmail()) // SET email = ?
+                .update(); // 执行更新，返回是否成功
+    }
+}
+```
+
+- 测试
+
+```java
+@SpringBootTest
+class DemoMybatisPlusApplicationTests {
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    void countUsersAboveAge10Test(){
+        long count = userService.countUsersAboveAge10();
+        System.out.println(count);
+
+        // 等价写法，写法一：使用 LambdaUpdateWrapper (非链式)
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(User::getId,1).set(User::getEmail,"test");
+        boolean update = userService.update(updateWrapper);
+        System.out.println(update);
+
+        // 等价写法，写法二：组合实体 + Wrapper (混合写法)
+        User user = new User();
+        user.setEmail("zhangsan");
+
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(User::getId,1);
+
+        userService.update(user,updateWrapper);
+    }
+}
+```
