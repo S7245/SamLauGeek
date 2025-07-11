@@ -590,3 +590,41 @@ class DemoMybatisPlusApplicationTests {
     }
 }
 ```
+
+## SimpleQuery
+
+> - SimpleQuery 是 Mybatis-Plus 提供的一个工具类，它对 selectList 查询后的结果进行了封装，使其可以通过 Stream 流的方式进行处理，从而简化了 API 的调用。
+> - **使用 SimpleQuery 前，需要确保项目中已注入对应实体的 BaseMapper。**
+
+### map
+
+```java
+// 查询表内记录，封装返回为 Map<属性,实体>
+Map<A, E> keyMap(LambdaQueryWrapper<E> wrapper, SFunction<E, A> sFunction, Consumer<E>... peeks);
+
+// 查询表内记录，封装返回为 Map<属性,实体>，考虑了并行流的情况
+Map<A, E> keyMap(LambdaQueryWrapper<E> wrapper, SFunction<E, A> sFunction, boolean isParallel, Consumer<E>... peeks);
+```
+
+
+```java
+@Test
+void testSimpleQuery(){
+    LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+    queryWrapper.gt(User::getAge,10);
+    Map<Object, Object> userMap = SimpleQuery.map(
+            queryWrapper,
+            User::getName, // key
+            User::getAge, // value
+            user -> System.out.println(user.getName())
+
+    );
+    // 遍历结果
+    for (Map.Entry<Object, Object> entry : userMap.entrySet()) {
+        System.out.println("Username: " + entry.getKey() + ", Age: " + entry.getValue());
+    }
+}
+```
+
+### group?
+### list?
